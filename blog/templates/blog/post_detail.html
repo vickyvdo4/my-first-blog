@@ -9,8 +9,27 @@
         {% endif %}
             {% if user.is_authenticated %}
                 <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a class="btn btn-default" href="{% url 'post_remove' pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+
         {% endif %}
         <h1>{{ post.title }}</h1>
+        <p><img src="../../static/css/Media/photo_2022-06-13_23-03-23.jpg" alt="home" width="{{ 200 }}"/></p>
         <p>{{ post.text|linebreaksbr }}</p>
     </div>
+<hr>
+
+<div data-gb-custom-block data-tag="for"></div>
+
+    <a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
+{% for comment in post.comments.all %}
+    <div class="comment">
+        <div class="date">{{ comment.created_date }}</div>
+        <strong>{{ comment.author }}</strong>
+        <p>{{ comment.text|linebreaks }}</p>
+    </div>
+<!--<div data-gb-custom-block data-tag="empty">-->
+
+<!--    <p>No comments here yet :(</p>-->
+<!--</div>-->
+{% endfor %}
 {% endblock %}
